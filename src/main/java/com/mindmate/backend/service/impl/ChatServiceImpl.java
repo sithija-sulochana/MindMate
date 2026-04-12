@@ -98,9 +98,11 @@ public class ChatServiceImpl implements ChatService {
         List<UserPreference> prefs = userId == null ? Collections.emptyList() : preferenceRepo.findByUserId(userId);
         StringBuilder sb = new StringBuilder("You are MindMate, a supportive and empathetic best friend. ");
 
+        sb.append("You must remember details about the user to provide a personalized experience.");
         if (!prefs.isEmpty()) {
-            sb.append("Consider these user traits: ");
+            sb.append("\n[USER KNOWLEDGE]: Information you already know about the user: ");
             prefs.forEach(p -> sb.append(p.getPrefKey()).append(" is ").append(p.getPrefValue()).append(". "));
+            sb.append("\nUse this knowledge to answer the user's questions naturally.");
         }
         return sb.toString();
     }
@@ -145,13 +147,12 @@ public class ChatServiceImpl implements ChatService {
                 String key = parts[0].trim().toLowerCase();
                 String value = parts[1].trim().toLowerCase();
 
-                // DTO එක සාදා දත්ත පුරවන්න
+
                 UserPreferenceDTO dto = new UserPreferenceDTO();
                 dto.setPrefKey(key);
                 dto.setPrefValue(value);
 
-                // Service එක හරහා Save කරන්න
-                // සටහන: ඔයාගේ UserPreferenceService එකේ userId එකෙන් save කරන method එකක් තියෙන්න ඕනේ
+
                 preferenceService.updatePreferenceByUserId(userId, dto);
 
                 System.out.println("✅ Trait Extracted & Saved: " + key + " = " + value);

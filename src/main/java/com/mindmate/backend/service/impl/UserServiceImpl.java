@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO createUser(UserDTO userDTO) {
         User user = new User();
-        // ModelMapper එකට ඉඩ දෙන්නේ නැතුව අපිම අගයන් දාමු (Manual Mapping)
+
         user.setClerkId(userDTO.getClerkId());
         user.setEmail(userDTO.getEmail());
         user.setPetName(userDTO.getPetName());
@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
         User savedUser = userRepo.save(user);
 
-        // ආපහු DTO එකට හරවද්දී ModelMapper එක පාවිච්චි කරන්න පුළුවන්
+
         return modelMapper.map(savedUser, UserDTO.class);
     }
 
