@@ -150,7 +150,7 @@ public class GoogleCalendarService {
         // Set start time
         EventDateTime start = new EventDateTime()
                 .setDateTime(startDateTime)
-                .setTimeZone("UTC");
+                .setTimeZone("Asia/Colombo");
 
         event.setStart(start);
 
@@ -161,7 +161,7 @@ public class GoogleCalendarService {
 
         EventDateTime end = new EventDateTime()
                 .setDateTime(endDateTime)
-                .setTimeZone("UTC");
+                .setTimeZone("Asia/Colombo");
 
         event.setEnd(end);
 

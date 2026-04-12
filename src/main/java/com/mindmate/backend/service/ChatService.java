@@ -20,19 +20,39 @@ public class ChatService {
     public record TaskDetails(String title, String date, String time) {}
 
     public String getResponse(String userInput) {
+
+        boolean isTask = checkIsTaskExists(userInput);
+        if(isTask){
+            try{
+
+                detectAndCreateTask(userInput);
+
+            }catch (Exception e){
+                System.out.println("Task creation failed : "+ e.getMessage());
+            }
+        }
         String aiResponse = chatClient.prompt()
                 .system("You are MindMate, a supportive and empathetic best friend. Never mocking.")
                 .user(userInput)
                 .call()
                 .content();
 
-        try {
-            detectAndCreateTask(userInput);
-        } catch (Exception e) {
-            System.err.println("Task detection failed: " + e.getMessage());
-        }
-
         return aiResponse;
+    }
+
+
+    private boolean checkIsTaskExists(String userInput){
+        String decision = chatClient.prompt()
+                .system("""
+                Analyze the user input. 
+                If the user wants to schedule an event, meeting, or reminder, return 'YES'.
+                If it's just a general conversation, emotion, or problem, return 'NO'.
+                Return ONLY 'YES' or 'NO'.
+                """)
+                .user(userInput)
+                .call()
+                .content();
+        return decision.trim().equalsIgnoreCase("YES");
     }
 
     private void detectAndCreateTask(String userInput) {
