@@ -1,4 +1,4 @@
-package com.mindmate.backend.service;
+package com.mindmate.backend.service.impl;
 
 
 import com.google.api.client.auth.oauth2.Credential;
@@ -35,7 +35,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class GoogleCalendarService {
+public class GoogleCalendarServiceImpl {
 
 
     private static final String APPLICATION_NAME = "MindMate";
@@ -63,7 +63,7 @@ public class GoogleCalendarService {
     private Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws Exception {
 
         // Load credentials.json from resources folder
-        InputStream in = GoogleCalendarService.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
+        InputStream in = GoogleCalendarServiceImpl.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
 
         if (in == null) {
             throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
