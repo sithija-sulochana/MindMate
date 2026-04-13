@@ -11,6 +11,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ConversationDTO {
     private Long id;
-    private String title;        // චැට් එකේ මාතෘකාව (උදා: "Feeling Lonely")
+    private String title;       
     private LocalDateTime createdAt;
 }
