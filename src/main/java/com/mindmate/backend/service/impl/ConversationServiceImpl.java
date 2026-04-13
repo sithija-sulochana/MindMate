@@ -58,7 +58,7 @@ public class ConversationServiceImpl implements ConversationService {
 
     @Override
     @Transactional
-    public void updateConversationTitle(Long conversationId, String newTitle) {
+    public void updateConversationTitle(String conversationId, String newTitle) {
         Conversation conversation = conversationRepo.findById(conversationId)
                 .orElseThrow(() -> new RuntimeException("Conversation not found"));
         conversation.setTitle(newTitle);
@@ -67,7 +67,7 @@ public class ConversationServiceImpl implements ConversationService {
 
     @Override
     @Transactional
-    public void deleteConversation(Long conversationId) {
+    public void deleteConversation(String conversationId) {
         conversationRepo.deleteById(conversationId);
     }
 }

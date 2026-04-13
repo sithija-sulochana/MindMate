@@ -18,10 +18,10 @@ public class UserPreference {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "pref_key", nullable = false)
+    @Column(name = "pref_key", nullable = false, columnDefinition = "TEXT")
     private String prefKey;
 
-    @Column(name = "pref_value", nullable = false)
+    @Column(name = "pref_value", nullable = false, columnDefinition = "TEXT")
     private String prefValue;
 
     @ManyToOne(fetch = FetchType.LAZY)

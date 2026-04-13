@@ -1,20 +1,25 @@
 package com.mindmate.backend.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class ChatResponseDTO {
     private String content;
     private String sender;
     private LocalDateTime timestamp;
-    private Long conversationId;
+    private String conversationId;
+
+    public ChatResponseDTO(String content, String sender, LocalDateTime timestamp, String conversationId) {
+        this.content = content;
+        this.sender = sender;
+        this.timestamp = timestamp;
+        this.conversationId = conversationId;
+    }
 
 
 }

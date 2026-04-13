@@ -8,14 +8,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChatRequestDTO {
-    private Long conversationId;
+    private String conversationId;
     private String message;
 
-    public Long getConversationId() {
+    public String getConversationId() {
         return conversationId;
     }
 
-    public void setConversationId(Long conversationId) {
+    public void setConversationId(String conversationId) {
         this.conversationId = conversationId;
     }
 

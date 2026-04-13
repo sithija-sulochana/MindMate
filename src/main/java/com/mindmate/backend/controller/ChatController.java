@@ -3,8 +3,10 @@ package com.mindmate.backend.controller;
 import com.mindmate.backend.dto.ChatRequestDTO;
 import com.mindmate.backend.dto.ChatResponseDTO;
 import com.mindmate.backend.service.ChatService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 
 import java.security.Principal;
 
@@ -35,5 +37,10 @@ public class ChatController {
 
         ChatResponseDTO response = chatService.generateResponse(requestDTO, clerkId);
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<String> streamChat(@RequestBody ChatRequestDTO request) {
+        return chatService.streamResponse(request.getMessage());
     }
 }

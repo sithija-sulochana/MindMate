@@ -14,5 +14,5 @@ public class ChatMessageDTO {
     private String content;      // පණිවිඩය
     private String sender;       // "USER" හෝ "AI"
     private LocalDateTime timestamp;
-    private Long conversationId; // අදාළ conversation එකේ ID එක විතරයි
+    private String conversationId; // අදාළ conversation එකේ ID එක විතරයි
 }

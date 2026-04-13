@@ -30,13 +30,13 @@ public class ConversationController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateTitle(@PathVariable Long id, @RequestBody String newTitle) {
+    public ResponseEntity<String> updateTitle(@PathVariable String id, @RequestBody String newTitle) {
         conversationService.updateConversationTitle(id, newTitle);
         return ResponseEntity.ok("Title updated successfully");
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteConversation(@PathVariable Long id) {
+    public ResponseEntity<String> deleteConversation(@PathVariable String id) {
         conversationService.deleteConversation(id);
         return ResponseEntity.ok("Conversation deleted");
     }

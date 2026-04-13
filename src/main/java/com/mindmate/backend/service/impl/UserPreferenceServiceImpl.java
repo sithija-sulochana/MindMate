@@ -7,10 +7,11 @@ import com.mindmate.backend.entities.UserPreference;
 import com.mindmate.backend.Repository.UserPreferenceRepository;
 import com.mindmate.backend.Repository.UserRepository;
 import com.mindmate.backend.service.UserPreferenceService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,7 +50,7 @@ public class UserPreferenceServiceImpl implements UserPreferenceService {
     }
 
     @Override
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void updatePreferenceByUserId(Long userId, UserPreferenceDTO dto) {
         User user = userRepo.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
