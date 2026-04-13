@@ -10,7 +10,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ConversationDTO {
+<<<<<<< HEAD
     private String id;
     private String title;        // චැට් එකේ මාතෘකාව (උදා: "Feeling Lonely")
+=======
+    private Long id;
+    private String title;       
+>>>>>>> ad771267ec4ff8631daa4487176924d52552ce32
     private LocalDateTime createdAt;
 }
