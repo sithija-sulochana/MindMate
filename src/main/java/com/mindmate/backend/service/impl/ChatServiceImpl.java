@@ -69,7 +69,7 @@ public class ChatServiceImpl implements ChatService {
         if (userInput.matches("^(hi|hello|hey|hola|can i talk)$")) {
             String simpleReply = "Hey bro! 😊 Always here for you. What's on your mind?";
             ChatMessage aiMsg = saveMessage(conversation, simpleReply, "AI");
-            return new ChatResponseDTO(simpleReply, "AI", aiMsg.getTimestamp(), conversation.getId());
+            return new ChatResponseDTO(simpleReply, "AI", aiMsg.getTimestamp(), String.valueOf(conversation.getId()));
         }
 
         String systemPrompt = """
@@ -150,12 +150,12 @@ public class ChatServiceImpl implements ChatService {
                 aiResponseContent,
                 "AI",
                 savedAiMsg.getTimestamp(),
-                conversation.getId()
+                String.valueOf(conversation.getId())
         );
     }
 
     private Conversation resolveConversation(User user, String conversationId) {
-        if (conversationId == null || conversationId.isBlank()) {
+        if (conversationId == null) {
             Conversation newConversation = new Conversation();
             newConversation.setUser(user);
             newConversation.setCreatedAt(LocalDateTime.now());
@@ -216,6 +216,7 @@ public class ChatServiceImpl implements ChatService {
                 String key = parts[0].trim().toLowerCase().replaceAll("[^a-z_]", "");
                 String value = parts[1].trim().replaceAll(";", "");
                 if (key.isEmpty() || value.isEmpty()) return;
+                if (key.length() > 100) key = key.substring(0, 100);
                 if (value.length() > 250) value = value.substring(0, 250);
                 UserPreferenceDTO dto = new UserPreferenceDTO();
                 dto.setPrefKey(key);
@@ -231,14 +232,34 @@ public class ChatServiceImpl implements ChatService {
         try {
             String decision = chatClient.prompt()
                     .system("""
-                Determine if user mentions an event AND a time/date. 
-                Return ONLY 'YES' or 'NO'. 
-                Example: "Meeting tomorrow at 3pm" -> YES.
-                """)
+    # TASK
+    You are a strict boolean data extractor. Your ONLY job is to identify if two specific data points exist in the text.
+    
+    # REQUIRED DATA POINTS
+    1. ACTION: A verb, task, or event (e.g., "meeting", "shop", "call", "gym").
+    2. TIME: Any temporal marker (e.g., "tomorrow", "9:30pm", "Saturday", "late night").
+    
+    # RULES - DO NOT DEVIATE
+    - Respond ONLY with 'YES' or 'NO'.
+    - DO NOT evaluate if the time is "reasonable" or "professional."
+    - DO NOT ask for clarification.
+    - If the input contains BOTH an action and a time (no matter how late or vague), return YES.
+    - 9:30 PM is a valid time reference.
+    - Tomorrow is a valid time reference.
+    
+    # EXAMPLES
+    - "Meeting at 2am" -> YES (Even if it is an unusual time)
+    - "Study next year" -> YES
+    - "Call mom" -> NO (Missing time)
+    
+    # OUTPUT
+    YES or NO
+    """)
                     .user(userInput)
                     .call()
                     .content();
-            return decision != null && decision.trim().toUpperCase().contains("YES");
+
+            return decision != null && decision.trim().contains("YES") || decision.trim().contains("yes");
         } catch (Exception e) {
             return false;
         }
@@ -246,7 +267,7 @@ public class ChatServiceImpl implements ChatService {
 
     private void detectAndCreateTask(String userInput) {
         var converter = new BeanOutputConverter<>(TaskDetails.class);
-        String systemInstructions = "Extract details into JSON. Today: " + java.time.LocalDate.now() + ". " + converter.getFormat();
+        String systemInstructions = "Extract details into JSON. Today: " + "2026-04-21" + ". " + converter.getFormat();
         try {
             String jsonResult = chatClient.prompt()
                     .system(systemInstructions)

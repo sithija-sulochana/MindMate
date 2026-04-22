@@ -6,10 +6,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "conversations")
@@ -18,6 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Conversation {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     private String title;
@@ -74,9 +73,6 @@ public class Conversation {
 
     @PrePersist
     protected void onCreate() {
-        if (id == null || id.isBlank()) {
-            id = UUID.randomUUID().toString();
-        }
         createdAt = LocalDateTime.now();
     }
 }

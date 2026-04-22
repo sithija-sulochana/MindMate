@@ -42,9 +42,14 @@ public class UserPreferenceServiceImpl implements UserPreferenceService {
         UserPreference pref = preferenceRepo.findByUserIdAndPrefKey(user.getId(), dto.getPrefKey())
                 .orElse(new UserPreference());
 
+        String key = dto.getPrefKey();
+        String value = dto.getPrefValue();
+        if (key != null && key.length() > 100) key = key.substring(0, 100);
+        if (value != null && value.length() > 250) value = value.substring(0, 250);
+
         pref.setUser(user);
-        pref.setPrefKey(dto.getPrefKey());
-        pref.setPrefValue(dto.getPrefValue());
+        pref.setPrefKey(key);
+        pref.setPrefValue(value);
 
         preferenceRepo.save(pref);
     }
@@ -58,9 +63,14 @@ public class UserPreferenceServiceImpl implements UserPreferenceService {
         UserPreference pref = preferenceRepo.findByUserIdAndPrefKey(userId, dto.getPrefKey())
                 .orElse(new UserPreference());
 
+        String key = dto.getPrefKey();
+        String value = dto.getPrefValue();
+        if (key != null && key.length() > 100) key = key.substring(0, 100);
+        if (value != null && value.length() > 250) value = value.substring(0, 250);
+
         pref.setUser(user);
-        pref.setPrefKey(dto.getPrefKey());
-        pref.setPrefValue(dto.getPrefValue());
+        pref.setPrefKey(key);
+        pref.setPrefValue(value);
 
         preferenceRepo.save(pref);
     }

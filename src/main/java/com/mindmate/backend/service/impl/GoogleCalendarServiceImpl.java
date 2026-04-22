@@ -32,7 +32,18 @@ public class GoogleCalendarServiceImpl {
     private static final String TOKENS_DIRECTORY_PATH = "tokens";
     private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR_EVENTS);
     private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
+    private static final NetHttpTransport HTTP_TRANSPORT ;
 
+
+    static {
+        NetHttpTransport transport;
+        try {
+            transport = GoogleNetHttpTransport.newTrustedTransport();
+        } catch (Exception e) {
+            transport = null;
+        }
+        HTTP_TRANSPORT = transport;
+    }
     private Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws Exception {
 
         InputStream in = GoogleCalendarServiceImpl.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
@@ -63,8 +74,6 @@ public class GoogleCalendarServiceImpl {
 
     public String createEvent(String title, String date, String time) throws Exception {
 
-        final NetHttpTransport HTTP_TRANSPORT =
-                GoogleNetHttpTransport.newTrustedTransport();
 
         com.google.api.services.calendar.Calendar service =
                 new com.google.api.services.calendar.Calendar.Builder(

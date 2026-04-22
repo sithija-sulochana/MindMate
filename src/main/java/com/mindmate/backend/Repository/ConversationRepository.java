@@ -11,6 +11,7 @@ import java.util.Optional;
 public interface ConversationRepository extends JpaRepository<Conversation, String> {
 
     List<Conversation> findByUserOrderByCreatedAtDesc(User user);
+
     Optional<Conversation> findByIdAndUserId(String id, Long userId);
 
 }
