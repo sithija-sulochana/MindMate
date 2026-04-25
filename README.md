@@ -1,27 +1,96 @@
-# MindMate AI – Contextual Personal Assistant
+# MindMate
 
-MindMate is an intelligent personal assistant designed to bridge the gap between software logic and real-world user needs. Built with **Spring Boot** and **React**, it leverages Local LLMs (via **Ollama**) and hardware sensors to provide real-time assistance, schedule management, and technical support.
+**MindMate** is an intelligent personal assistant that seamlessly blends sophisticated software logic with real-world user needs. Powered by local large language models and real-time hardware sensor integration, MindMate offers on-device privacy, precise automation, and hands-free technical support.
 
-## 🚀 Key Features
-- **Contextual AI Chat:** Integrated with **Llama 3** (via Ollama) for high-reasoning local inference.
-- **Google Calendar Sync:** Detects meeting requests and synchronizes them with external APIs.
-- **Hardware Integration:** Real-time distance and environment monitoring via **Arduino/ESP32**.
-- **High-Performance Architecture:** Optimized for **NVIDIA RTX 4070** to ensure low-latency responses by offloading AI tasks to the GPU, keeping the CPU free for network packet handling (ACK) and API calls.
+---
 
-## 🛠 Tech Stack
-- **Backend:** Java 21, Spring Boot 3.x, Spring AI
-- **Database:** PostgreSQL
-- **AI Engine:** Ollama (Llama 3)
-- **Infrastructure:** NVIDIA CUDA 12.x, Windows 11 (preferring IPv4 stack)
+## Table of Contents
 
-## ⚙️ Setup Requirements
-1. **Ollama:** Install from [ollama.com](https://ollama.com) and run `ollama run llama3`.
-2. **PostgreSQL:** Ensure a database named `mindmate` is created.
-3. **Java JDK:** Version 21 or higher.
-4. **NVIDIA Drivers:** Latest Game Ready or Studio drivers for RTX acceleration.
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Technology Stack](#technology-stack)
+- [Getting Started](#getting-started)
+- [System Architecture](#system-architecture)
+- [Contributing](#contributing)
+- [License](#license)
 
-## 🏃 Setup Instructions
-1. Clone the repository.
-2. Update `src/main/resources/application.properties` with your DB credentials.
-3. Build the project: `./mvnw clean install`.
-4. Run the application: `./mvnw spring-boot:run`.
+---
+
+## Overview
+
+MindMate is designed from the ground up to provide context-aware assistance, efficiently coordinating schedules, monitoring environments, and responding to technical queries—all while ensuring your data never leaves your device.
+
+---
+
+## Key Features
+
+- **Conversational AI**: Leverages high-performance local LLMs via [Ollama](https://ollama.com/) for on-device, private smart assistance.
+- **Schedule & Task Management**: Automated handling and optimization of events, reminders, and routines.
+- **Sensor Integration**: Real-time data collection and action using hardware interfaces for environmental or presence awareness.
+- **Technical Support**: Instantly assists with technical queries, system diagnostics, and automation tasks.
+- **Extensible Platform**: Easily integrate new sensors, data sources, or automation logic.
+- **Privacy-First**: MindMate performs all processing locally; no user data is sent to the cloud.
+
+---
+
+## Technology Stack
+
+- **Spring Boot (Java):** Backend API and service orchestration
+- **Ollama:** Local LLM server for private, high-speed natural language processing
+- **Hardware Sensor Drivers:** (e.g., via JNI, serial, or OS-level interfaces)
+- **Database:** (e.g., PostgreSQL, MySQL, or embedded; specify as implemented)
+- **Authentication & Authorization:** (e.g., JWT, OAuth2, or OS-level, if enabled)
+- **API Design:** RESTful services and event-driven integration
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- **Java 17+**
+- **Ollama - phi3 model** (installed and running locally, with preferred LLM model loaded)
+- **Database** (if using external; otherwise, embedded DB is supported)
+- Compatible hardware sensors & drivers (optional, for sensor features)
+
+### Installation
+
+1. **Clone the repository**
+    ```bash
+    git clone https://github.com/sithija-sulochana/MindMate.git
+    cd MindMate
+    ```
+
+2. **Configure Environment**
+    - Edit `application.properties` for database, sensor, and optional LLM settings.
+
+3. **Build & Run**
+    ```bash
+    ./mvnw clean install
+    ./mvnw spring-boot:run
+    ```
+
+
+
+## Contributing
+
+We welcome contributions—please open an issue to discuss proposals or submit a pull request for review.
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/your-feature`)
+3. Make your changes and commit (`git commit -am 'Describe your change'`)
+4. Push and create a pull request
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## Acknowledgements
+
+- [Spring Boot](https://spring.io/projects/spring-boot)
+- [Ollama](https://ollama.com/)
+- Open source sensor and automation communities
