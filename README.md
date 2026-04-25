@@ -26,9 +26,8 @@ MindMate is designed from the ground up to provide context-aware assistance, eff
 
 - **Conversational AI**: Leverages high-performance local LLMs via [Ollama](https://ollama.com/) for on-device, private smart assistance.
 - **Schedule & Task Management**: Automated handling and optimization of events, reminders, and routines.
-- **Sensor Integration**: Real-time data collection and action using hardware interfaces for environmental or presence awareness.
+
 - **Technical Support**: Instantly assists with technical queries, system diagnostics, and automation tasks.
-- **Extensible Platform**: Easily integrate new sensors, data sources, or automation logic.
 - **Privacy-First**: MindMate performs all processing locally; no user data is sent to the cloud.
 
 ---
@@ -37,7 +36,6 @@ MindMate is designed from the ground up to provide context-aware assistance, eff
 
 - **Spring Boot (Java):** Backend API and service orchestration
 - **Ollama:** Local LLM server for private, high-speed natural language processing
-- **Hardware Sensor Drivers:** (e.g., via JNI, serial, or OS-level interfaces)
 - **Database:** (e.g., PostgreSQL, MySQL, or embedded; specify as implemented)
 - **Authentication & Authorization:** (e.g., JWT, OAuth2, or OS-level, if enabled)
 - **API Design:** RESTful services and event-driven integration
