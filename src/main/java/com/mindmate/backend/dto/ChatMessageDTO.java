@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ChatMessageDTO {
     private Long id;
-    private String content;      // පණිවිඩය
-    private String sender;       // "USER" හෝ "AI"
+    private String content;
+    private String sender;
     private LocalDateTime timestamp;
-    private String conversationId; // අදාළ conversation එකේ ID එක විතරයි
+    private String conversationId;
 }
